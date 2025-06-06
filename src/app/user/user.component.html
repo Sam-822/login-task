@@ -1,0 +1,131 @@
+<div class="flex flex-col w-screen max-w-screen-xl mx-auto min-h-screen items-center p-4 gap-8 my-10">
+	<!-- Header -->
+	<div class="text-center">
+		<h1 class="font-bold italic text-3xl uppercase text-shadow-lg">My account</h1>
+		<p>Manage Your Fun: View Tickets, Book Zones, and Track Your Adventure!</p>
+	</div>
+
+	<!-- User summary -->
+	<div class="w-full shadow-lg rounded-lg flex items-center p-4 gap-4">
+		<img [src]="userData.image" class="w-20 h-20 rounded-full object-cover" alt="">
+		<div>
+			<p class="font-semibold text-lg">{{userData.firstName}}</p>
+			<p class="text-gray-500">{{userData.phoneCode + userData.phone}}</p>
+			<p class="text-gray-500">{{userData.email}}</p>
+		</div>
+	</div>
+
+	<!-- Actions and user details -->
+	<div class="grid grid-cols-4 gap-8 w-full">
+
+		<!-- Actions side bar -->
+		<div class="rounded-lg shadow-xl grid h-80">
+			<button class="border-b border-gray-200 text-[#1a908b] px-8 py-3 text-start"><i class="fa fa-user"></i> Edit
+				Profile</button>
+			<button class="border-b border-gray-200 text-gray-500 px-8 py-3 text-start"><i class="fa fa-question-circle"></i>
+				FAQs</button>
+			<button class="border-b border-gray-200 text-gray-500 px-8 py-3 text-start"><i class="fa fa-headphones"></i>
+				Contact Us</button>
+			<button class="border-b border-gray-200 text-gray-500 px-8 py-3 text-start"><i class="fa fa-user-times"></i>
+				Delete Account</button>
+			<button class="text-red-500 px-8 py-3 text-start" (click)="logout()"><i class="fa fa-sign-out"></i> Logout</button>
+
+		</div>
+		<div class="col-span-3">
+			<p class="text-xl mb-2">Personal Information</p>
+
+			<div class="w-full flex items-center p-4 gap-4">
+				<div class="relative">
+					<img [src]="userData.image" class="w-24 h-24 rounded-full object-cover" alt="">
+					<button
+						class="absolute bottom-0 right-0 rounded-full border border-gray-300 h-8 w-8 bg-gray-200 hover:bg-gray-300 hover:border-gray-400 cursor-pointer transition-all">
+						<i class="fa fa-camera text-xs"></i>
+					</button>
+				</div>
+				<div>
+					<p class="font-semibold text-lg capitalize">{{userData.firstName + ' ' + userData.lastName}}</p>
+					<p class="text-gray-500">{{userData.email}}</p>
+				</div>
+			</div>
+
+			<div class="w-full grid grid-cols-2 gap-4">
+				<!-- First Name -->
+				<div>
+					<label for="firstName" class="text-sm block mb-1">First Name</label>
+					<input type="text" name="firstName" id="firstName"
+						class="border border-gray-300 w-full rounded py-1.5 px-2 outline-none focus:border-gray-400"
+						[value]="userData.firstName">
+				</div>
+
+				<!-- Last Name -->
+				<div>
+					<label for="lastName" class="text-sm block mb-1">Last Name</label>
+					<input type="text" name="lastName" id="lastName"
+						class="border border-gray-300 w-full rounded py-1.5 px-2 outline-none focus:border-gray-400"
+						[value]="userData.lastName">
+				</div>
+
+				<!-- Email -->
+				<div>
+					<label for="email" class="text-sm block mb-1">Email</label>
+					<input type="email" name="email" id="email"
+						class="border border-gray-300 w-full rounded py-1.5 px-2 outline-none focus:border-gray-400"
+						[value]="userData.email">
+				</div>
+
+				<!-- Phone Number -->
+				<div>
+					<label for="phone" class="text-sm block mb-1">Phone Number</label>
+					<div class="border border-gray-300 w-full rounded py-1.5 px-2 outline-none focus-within:border-gray-400 flex">
+						<select name="phoneCode" id="phoneCode" [value]="userData.phoneCode" class="w-1/4">
+							<option value="965">965</option>
+						</select>
+						<div class="h-4 m-auto mx-2 border-r border-gray-400"></div>
+						<input type="text" name="phone" id="phone" class="h-full outline-none focus:border-gray-400"
+							[value]="userData.phone">
+					</div>
+				</div>
+
+				<!-- Old Password -->
+				<div>
+					<label for="oldPass" class="text-sm block mb-1">Old Password</label>
+					<div class="relative w-full">
+						<input [type]="oldPassType" name="oldPass" id="oldPass"
+							class="border border-gray-300 w-full rounded py-1.5 px-2 outline-none focus:border-gray-400 placeholder:text-gray-400"
+							placeholder="Enter your old password">
+						<button type="button" class="absolute right-2 h-full cursor-pointer" (click)="toggleOldPass()"><i class="fa"
+								[class]="oldPassType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i></button>
+					</div>
+				</div>
+
+				<!-- New Password -->
+				<div>
+					<label for="newPass" class="text-sm block mb-1">New Password</label>
+					<div class="relative w-full">
+						<input [type]="newPassType" name="newPass" id="newPass"
+							class="border border-gray-300 w-full rounded py-1.5 px-2 outline-none focus:border-gray-400 placeholder:text-gray-400"
+							placeholder="Enter your new password">
+						<button type="button" class="absolute right-2 h-full cursor-pointer" (click)="toggleNewPass()"><i class="fa"
+								[class]="newPassType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i></button>
+					</div>
+				</div>
+
+				<!-- Confirm New Password -->
+				<div>
+					<label for="confirmPass" class="text-sm block mb-1">Confirm New Password</label>
+					<div class="relative w-full">
+						<input [type]="confPassType" name="confirmPass" id="confirmPass"
+							class="border border-gray-300 w-full rounded py-1.5 px-2 outline-none focus:border-gray-400 placeholder:text-gray-400"
+							placeholder="Enter your new password">
+						<button type="button" class="absolute right-2 h-full cursor-pointer" (click)="toggleConfPass()"><i
+								class="fa" [class]="confPassType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i></button>
+					</div>
+				</div>
+
+				<button class="col-span-2 bg-[#1a908b] text-white py-2 rounded-lg">Save</button>
+
+			</div>
+
+		</div>
+	</div>
+</div>

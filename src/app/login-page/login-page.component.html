@@ -1,0 +1,35 @@
+<div class="flex w-screen h-screen justify-center items-center bg-black/50">
+	<form (submit)="submitForm()" [formGroup]="loginForm"
+		class="w-96 rounded rounded-xl bg-white shadow p-4 flex flex-col items-center gap-4">
+		<img src="/logo.svg" height="40" width="40" alt="">
+		<p class="text-md uppercase">Enter your email to continue</p>
+		<div class="w-full">
+			<input type="email" name="email" id="email" formControlName="email"
+				class="bg-gray-100 rounded-lg p-2 w-full placeholder:text-gray-500 outline-none border border-gray-100 focus:border-gray-300 transition-all"
+				placeholder="Email">
+			<p *ngIf="submitted && !loginForm.controls['email'].valid" class="text-sm text-red-500 w-full ps-2">Email is invalid
+			</p>
+		</div>
+		<div class="relative w-full">
+			<input [type]="passType" name="password" id="password" formControlName="password"
+				class="bg-gray-100 rounded-lg p-2 w-full placeholder:text-gray-500 outline-none border border-gray-100 focus:border-gray-300 transition-all"
+				placeholder="Password">
+			<button type="button" class="absolute right-2 top-2" (click)="togglePass()"><i class="fa cursor-pointer"
+					[class]="passType === 'password' ? 'fa-eye' : 'fa-eye-slash'"></i></button>
+			<p *ngIf="submitted && !loginForm.controls['password'].valid" class="text-sm text-red-500 w-full ps-2">Password is
+				invalid</p>
+
+		</div>
+		<div class="w-full flex justify-end">
+			<a href="#" class="text-sm font-semibold hover:underline">Forgot Password?</a>
+		</div>
+
+		<div class="w-full">
+			<p class="text-sm text-red-500 p-2 text-center w-full rounded" *ngIf="error">{{error}}</p>
+		</div>
+		<button
+			class="w-full bg-[#1a908b] hover:bg-[#20b6af] transition-colors text-white p-2 rounded-md cursor-pointer">Login</button>
+		<p class="mt-4 text-sm">Don't have an account? <a href="#"
+				class="text-[#1a908b] hover:underline font-semibold">Create account</a></p>
+	</form>
+</div>
